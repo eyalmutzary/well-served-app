@@ -2,6 +2,7 @@ import { Component, OnInit, ComponentFactoryResolver, ViewChild } from '@angular
 
 import { PlaceholderDirective } from '../modals/placeholder.directive';
 import { ConfirmComponent } from '../modals/confirm/confirm.component';
+import { TableDetailsComponent } from '../modals/table-details/table-details.component';
 import { Subscription } from 'rxjs';
 
 
@@ -22,6 +23,18 @@ export class DinerComponent implements OnInit {
 
   showConfirmAlert(){
     const alertCmpFactory = this.componentFactoryResolver.resolveComponentFactory(ConfirmComponent);
+    const hostViewContainerRef = this.alertHost.viewContainerRef;
+    hostViewContainerRef.clear();
+    const componentRef = hostViewContainerRef.createComponent(alertCmpFactory);
+
+    this.closeSub = componentRef.instance.close.subscribe(() => {
+      this.closeSub.unsubscribe();
+      hostViewContainerRef.clear();
+    });
+  }
+
+  showTableDetails(){
+    const alertCmpFactory = this.componentFactoryResolver.resolveComponentFactory(TableDetailsComponent);
     const hostViewContainerRef = this.alertHost.viewContainerRef;
     hostViewContainerRef.clear();
     const componentRef = hostViewContainerRef.createComponent(alertCmpFactory);

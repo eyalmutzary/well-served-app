@@ -25,25 +25,31 @@ export class DinerOrderPageComponent implements OnInit, OnDestroy {
   faStarOfLife = faStarOfLife;
 
   currentOrder: Order;
-  private orderChanged: Subscription;
+  orderChanged: Subscription;
+  isEmpty: boolean = true;
 
 
 
   @ViewChild(PlaceholderDirective, { static: false }) alertHost: PlaceholderDirective;
   private closeSub: Subscription;
 
-  constructor(private componentFactoryResolver: ComponentFactoryResolver, private menuService: MenuService, private orderService: OrderService) { 
-    
+  constructor(private componentFactoryResolver: ComponentFactoryResolver, private orderService: OrderService) { 
   }
 
   ngOnInit() {
     this.orderService.newOrder();
-    console.log(this.currentOrder)
-    this.orderChanged = this.orderService.orderChanged.subscribe(() => {this.currentOrder = this.orderService.getOrder();})
+    this.isEmpty = true;
+    this.orderChanged = this.orderService.orderChanged.subscribe(() => {
+      this.currentOrder = this.orderService.getOrder(); 
+      if(this.currentOrder.productsList.length >= 1){
+        this.isEmpty = false;
+      }
+    })
   }
 
   ngOnDestroy(){
     this.orderChanged.unsubscribe();
+    this.orderService.resetOrder();
   }
 
   showConfirmAlert(){
@@ -75,6 +81,9 @@ export class DinerOrderPageComponent implements OnInit, OnDestroy {
 
   onRemoveProduct(position: number){
     this.orderService.removeProduct(position);
+    if(this.currentOrder.productsList.length < 1){
+      this.isEmpty = true;
+    }
   }
 
 }

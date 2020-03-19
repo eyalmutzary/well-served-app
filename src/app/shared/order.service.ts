@@ -12,7 +12,6 @@ export class OrderService {
   currentOrder: Order;
   productCounter: number;
   productAdded: Subscription;
-  noteAdded: Subscription;
   orderChanged = new EventEmitter<Order>();
 
 
@@ -31,6 +30,11 @@ export class OrderService {
 
   getOrder(){
     return this.currentOrder;
+  }
+
+  resetOrder(){
+    this.currentOrder = undefined;
+    this.productAdded.unsubscribe();
   }
 
   addProduct(product: Product){
