@@ -1,0 +1,29 @@
+<ng-template appPlaceholder></ng-template>
+
+
+<div class="background">
+    <div class="container check">
+        <h3 class="pt-3">Order List:</h3>
+        <hr>
+        <div *ngIf="currentOrder == undefined" class="row product mt-3 text-muted">
+            <div class="col">List is Empty!</div>
+        </div>
+        <div *ngIf="currentOrder.orderSum != 0" >
+            <div *ngFor="let product of currentOrder.productsList" class="row product mt-3 text-muted">
+                <div class="col-6">{{ product.title }}</div>
+                <div class="col-3">{{ product.price | number : '1.2-2' }}$</div>
+                <div class="col-1"><button type="button" class="btn btn-white text-muted m-0 p-0"><fa-icon [icon]="faEdit"></fa-icon></button></div>
+                <div class="col-1"><button type="button" class="btn btn-white text-muted m-0 p-0"><fa-icon [icon]="faTimes"></fa-icon></button></div>
+                <p class="col-12 note" *ngIf="product.note != ''"><fa-icon class="icon" [icon]="faStarOfLife"></fa-icon>{{ product.note }}</p>
+            </div>
+        </div>
+        
+
+        <div class="row total">
+            <div class="col-11"><hr></div>
+            <div class="col text-muted text-left align-bottom">total</div>
+            <div *ngIf="currentOrder.orderSum != 0; else defaultTotal" class="col text-center price align-top">{{ currentOrder.orderSum | number : '1.2-2' }}$</div>
+        </div>
+    </div>
+    <button type="button" (click)="showConfirmAlert()" class="btn btn-warning order">Take an Order <fa-icon class="align-middle" style="padding-left: 10px; font-size: 40px;" [icon]="faAngleDoubleRight"></fa-icon></button>
+</div>

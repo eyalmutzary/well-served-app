@@ -1,0 +1,34 @@
+<ng-template appPlaceholder></ng-template>
+
+
+<div class="background">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-12 col-md-8 pt-4">
+                <h1 class="title">Well-Served</h1>
+                <p class="lead">Probably the best serving app in the world.</p>
+            </div>
+        
+            <div class="col-12 col-md-4">
+                <div class="row buttons">
+                    <div class="col-12 m-2">
+                        <button type="button" routerLink="/diner/menu" class="btn">Menu</button>
+                    </div>
+                    <div class="col-12 m-2">
+                        <button type="button" class="btn btn-light">My Table</button>
+                    </div>
+                    <div class="col-12 m-2">
+                        <button type="button" (click)="showConfirmAlert()" class="btn btn-light">Call a Waiter</button>
+                    </div>
+                    <div class="col-12 m-2">
+                        <button type="button" (click)="showConfirmAlert()" class="btn btn-light">Check, Please</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+

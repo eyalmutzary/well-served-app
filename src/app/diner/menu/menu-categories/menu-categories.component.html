@@ -1,0 +1,21 @@
+<div class="background text-center">
+    <div class="row top">
+        <div class="col-12"><button type="button" routerLink="/diner"><fa-icon [icon]="faArrowLeft"></fa-icon></button></div>
+    </div>
+
+
+    <div class="row middle">
+        
+        <div class="col-12 mb-2"><button type="button" [routerLink]="['/diner/menu']" [queryParams]="{ category: 'Special'}" (click)="selectCategory()" ><fa-icon [icon]="faStar"></fa-icon></button></div>
+        <div class="col-12 mb-2"><button type="button" [routerLink]="['/diner/menu']" [queryParams]="{ category: 'Hamburger'}"><fa-icon [icon]="faHamburger"></fa-icon></button></div>
+        <div class="col-12 mb-2"><button type="button" [routerLink]="['/diner/menu']" [queryParams]="{ category: 'Fish'}"><fa-icon [icon]="faFish"></fa-icon></button></div>
+        <div class="col-12 mb-2"><button type="button" [routerLink]="['/diner/menu']" [queryParams]="{ category: 'Pizza'}"><fa-icon [icon]="faPizzaSlice"></fa-icon></button></div>
+        <div class="col-12 mb-2"><button type="button" [routerLink]="['/diner/menu']" [queryParams]="{ category: 'Salad'}"><fa-icon [icon]="faSeedling"></fa-icon></button></div>
+        <div class="col-12"><button type="button" [routerLink]="['/diner/menu']" [queryParams]="{ category: 'Drink'}"><fa-icon [icon]="faWineGlassAlt"></fa-icon></button></div>
+    </div>
+
+    <div class="row bottom">
+        <div class="col-12 mb-2"><button type="button" [routerLink]="['/diner/menu']" [queryParams]="{ category: 'Dessert'}"><fa-icon [icon]="faIceCream"></fa-icon></button></div>
+        <div class="col-12"><button type="button" [routerLink]="['/diner/menu']" [queryParams]="{ category: 'Hot'}"><fa-icon [icon]="faMugHot"></fa-icon></button></div>
+    </div>
+</div>

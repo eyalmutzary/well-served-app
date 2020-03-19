@@ -1,0 +1,22 @@
+<ng-template appPlaceholder></ng-template>
+
+<div class="background container">
+    <div class="row">
+        <h4 class="p-4">{{ title }}</h4>
+    </div>
+    <div class="row pr-3 pl-3">
+        <div class="card m-2" style="width: 30%" *ngFor="let product of productList" >
+            <img [src]="product.imageUrl" class="card-img-top">
+            <div class="card-body p-2 text-center">
+              <h5 class="card-title text-center p-0 mb-2">{{ product.title }}</h5>
+              <p class="card-subtitle text-muted text-center mb-2">{{ product.price | number : '1.2-2' }}$</p>
+              <div class="row text-center">
+                  <div class="col">
+                    <button type="button" (click)="showDetailsAlert(product)" class="btn btn-light mr-1 mb-2 text-muted"><fa-icon [icon]="faQuestion"></fa-icon></button>
+                    <button type="button" (click)="onAddProduct(product)" class="btn btn-light ml-3 mb-2 text-muted"><fa-icon [icon]="faPlus"></fa-icon></button>
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
