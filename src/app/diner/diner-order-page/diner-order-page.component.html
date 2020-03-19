@@ -5,12 +5,12 @@
     <div class="container check">
         <h3 class="pt-3">Order List:</h3>
         <hr>
-        <div class="list">
+        <div class="">
 
         <div *ngIf="isEmpty" class="row product mt-3 text-muted">
                 <div class="col">List is Empty!</div>
             </div>
-            <div *ngIf="!isEmpty" >
+            <div *ngIf="!isEmpty" class="list">
                 <div *ngFor="let product of currentOrder.productsList" class="row product mt-3 text-muted">
                     <div class="col-6">{{ product.title }}</div>
                     <div class="col-3">{{ product.price | number : '1.2-2' }}$</div>

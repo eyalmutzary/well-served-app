@@ -34,17 +34,18 @@ export class OrderService {
 
   resetOrder(){
     this.currentOrder = undefined;
+    this.productCounter = 0;
     this.productAdded.unsubscribe();
   }
 
   addProduct(product: Product){
       let orderDetails = {position: this.productCounter, title: product.title, price: product.price, note: ''}
-      this.productCounter = +1;
+      this.productCounter = this.productCounter + 1;
       if(this.currentOrder.productsList == undefined){
         this.currentOrder.productsList = [orderDetails]
       }
       else{
-        orderDetails.position = this.currentOrder.productsList.length;
+        orderDetails.position = this.productCounter;
         this.currentOrder.productsList.push(orderDetails); // add the product to the list
       }
       this.currentOrder.orderSum = this.currentOrder.orderSum + product.price; // calc the sum of the order.
@@ -67,7 +68,6 @@ export class OrderService {
         this.currentOrder.productsList[index].note = text; 
       }
     })
-    console.log(this.currentOrder)
   }
 
 }
