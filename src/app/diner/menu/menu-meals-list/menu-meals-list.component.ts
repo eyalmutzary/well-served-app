@@ -51,6 +51,7 @@ export class MenuMealsListComponent implements OnInit {
   }
 
   fetchItems(category: string = "Hamburger"){
+    this.title = category;
     this.productList = this.menuService.getProductsByCategory(category);
   }
 

@@ -25,7 +25,7 @@ export class DinerOrderPageComponent implements OnInit, OnDestroy {
   faStarOfLife = faStarOfLife;
 
   currentOrder: Order;
-  private newProduct: Subscription;
+  private orderChanged: Subscription;
 
 
 
@@ -39,11 +39,11 @@ export class DinerOrderPageComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.orderService.newOrder();
     console.log(this.currentOrder)
-    this.newProduct = this.orderService.orderChanged.subscribe(() => {this.currentOrder = this.orderService.getOrder();})
+    this.orderChanged = this.orderService.orderChanged.subscribe(() => {this.currentOrder = this.orderService.getOrder();})
   }
 
   ngOnDestroy(){
-    this.newProduct.unsubscribe();
+    this.orderChanged.unsubscribe();
   }
 
   showConfirmAlert(){
@@ -58,16 +58,23 @@ export class DinerOrderPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  addNoteAlert(){
+  addNoteAlert(currentPosition: number, currentNote: string){
     const alertCmpFactory = this.componentFactoryResolver.resolveComponentFactory(AddNoteComponent);
     const hostViewContainerRef = this.alertHost.viewContainerRef;
     hostViewContainerRef.clear();
     const componentRef = hostViewContainerRef.createComponent(alertCmpFactory);
+    componentRef.instance.noteText = currentNote;
+    componentRef.instance.currentProductPosition = currentPosition;
+
 
     this.closeSub = componentRef.instance.close.subscribe(() => {
       this.closeSub.unsubscribe();
       hostViewContainerRef.clear();
     });
+  }
+
+  onRemoveProduct(position: number){
+    this.orderService.removeProduct(position);
   }
 
 }

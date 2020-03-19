@@ -1,7 +1,8 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { MenuMealsListComponent } from '../../diner/menu/menu-meals-list/menu-meals-list.component';
-import { Product } from '../../shared/product';
 import { Subscription } from 'rxjs';
+
+import { Product } from '../../shared/product';
+import { OrderService } from '../../shared/order.service';
 
 
 @Component({
@@ -11,20 +12,20 @@ import { Subscription } from 'rxjs';
 })
 export class MenuMealDetailsComponent implements OnInit {
 
-  @Output("confirm") confirm = new EventEmitter<void>();
   @Output("close") close = new EventEmitter<void>();
   @Input("productDetails") productDetails: Product;
 
   product: Product;
   prodSub: Subscription;
 
-  constructor(private menuMealsListComponent: MenuMealsListComponent) { }
+  constructor(private orderService: OrderService) { }
 
   ngOnInit() {
   }
   
-  onConfirm(){
-    this.confirm.emit();
+  onAddProduct(){
+    this.orderService.addProduct(this.productDetails)
+    this.close.emit();
   }
 
   onClose(){

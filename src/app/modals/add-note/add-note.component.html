@@ -8,11 +8,11 @@
             </button>
             </div>
             <div class="modal-body">
-                <textarea name="message" style="width: 45vw; height: 12vh;" placeholder="Enter notes here..."></textarea>
+                <textarea #textArea name="message" style="width: 45vw; height: 12vh;" placeholder="Enter notes here...">{{ noteText }}</textarea>
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" (click)="onClose()">Close</button>
-            <button type="button" class="btn btn-warning" (click)="onConfirm()">Confirm</button>
+            <button type="button" class="btn btn-warning" (click)="onNoteAdded(textArea.value)">Confirm</button>
             </div>
         </div>
     </div>

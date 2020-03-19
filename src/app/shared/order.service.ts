@@ -10,13 +10,16 @@ import { MenuService } from './menu.service';
 })
 export class OrderService {
   currentOrder: Order;
+  productCounter: number;
   productAdded: Subscription;
+  noteAdded: Subscription;
   orderChanged = new EventEmitter<Order>();
 
 
   constructor(private menuService: MenuService) { }
 
   newOrder(){
+    this.productCounter = 0;
     this.currentOrder = {
       orderSum: 0,
       orderStatus: 0
@@ -31,7 +34,8 @@ export class OrderService {
   }
 
   addProduct(product: Product){
-      let orderDetails = {position: 0, title: product.title, price: product.price, note: ''}
+      let orderDetails = {position: this.productCounter, title: product.title, price: product.price, note: ''}
+      this.productCounter = +1;
       if(this.currentOrder.productsList == undefined){
         this.currentOrder.productsList = [orderDetails]
       }
@@ -41,6 +45,25 @@ export class OrderService {
       }
       this.currentOrder.orderSum = this.currentOrder.orderSum + product.price; // calc the sum of the order.
       this.orderChanged.emit();
+  }
+
+  removeProduct(position: number){
+    this.currentOrder.productsList.forEach((product, index) => {
+      if(product.position === position) {
+        this.currentOrder.orderSum = this.currentOrder.orderSum - this.currentOrder.productsList[index].price;
+        this.currentOrder.productsList.splice(index,1);
+        this.orderChanged.emit();
+      }
+    })
+  }
+
+  addNote(position: number, text: string){
+    this.currentOrder.productsList.forEach((product, index) => {
+      if(product.position === position) {
+        this.currentOrder.productsList[index].note = text; 
+      }
+    })
+    console.log(this.currentOrder)
   }
 
 }
