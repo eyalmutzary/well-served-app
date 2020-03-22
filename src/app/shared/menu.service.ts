@@ -1,6 +1,9 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Product } from './product';
-import { Subject } from 'rxjs';
+import { Subject, throwError } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpParams, HttpEventType} from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root'
@@ -40,7 +43,22 @@ export class MenuService {
     }
   ]
 
-  constructor() { 
+  constructor(private http: HttpClient) { 
+  }
+
+  fetchProductByCategory(category: string) {
+    return this.http
+      .get<Product[]>(
+        'http://localhost:3000/products?category=' + category
+      ).pipe(
+        catchError(errorRes => {
+          let errorMessage = 'An unknown error occurred!';
+          if (!errorRes.error || !errorRes.error.error) {
+            return throwError(errorMessage);
+          }
+          return throwError(errorMessage);
+        })
+      );
   }
 
   getProductsByCategory(category: string = 'Hamburger'){

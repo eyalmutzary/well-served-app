@@ -10,18 +10,10 @@
             <div class="modal-body">
 
                 <!-- Rows of bill -->
-                <div class="row product mb-2 text-muted">
-                    <div class="col-6">Lorem Ipsum</div>
-                    <div class="col-6 text-right">12.00$</div>
-                    <p class="col-12 note" style="max-width: fit-content;"><fa-icon class="icon" [icon]="faStarOfLife"></fa-icon>Lorem ipsum dolor sit.</p>
-                </div>
-                <div class="row product mb-2 text-muted">
-                    <div class="col-6">Tasty Burger</div>
-                    <div class="col-6 text-right">8.00$</div>
-                </div>
-                <div class="row product mb-2 text-muted">
-                    <div class="col-6">Salmon</div>
-                    <div class="col-6 text-right">13.00$</div>
+                <div *ngFor="let product of totalProducts" class="row product mb-2 text-muted">
+                    <div class="col-6">{{ product.title }}</div>
+                    <div class="col-6 text-right">{{ product.price | number : '1.2-2' }}$</div>
+                    <p *ngIf="product.note" class="col-12 note" style="max-width: fit-content;"><fa-icon class="icon" [icon]="faStarOfLife"></fa-icon>{{product.note}}</p>
                 </div>
                 
             </div>

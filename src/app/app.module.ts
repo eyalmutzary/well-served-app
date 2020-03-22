@@ -1,5 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
@@ -20,6 +23,7 @@ import { ConfirmComponent } from './modals/confirm/confirm.component';
 import { TableDetailsComponent } from './modals/table-details/table-details.component';
 import { PlaceholderDirective } from './modals/placeholder.directive';
 import { AddNoteComponent } from './modals/add-note/add-note.component';
+import { TableNumComponent } from './modals/table-num/table-num.component';
 
 @NgModule({
   declarations: [
@@ -38,11 +42,15 @@ import { AddNoteComponent } from './modals/add-note/add-note.component';
     ConfirmComponent,
     TableDetailsComponent,
     PlaceholderDirective,
-    AddNoteComponent
+    AddNoteComponent,
+    TableNumComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
     FontAwesomeModule
   ],
   providers: [],
@@ -51,7 +59,8 @@ import { AddNoteComponent } from './modals/add-note/add-note.component';
     ConfirmComponent,
     MenuMealDetailsComponent,
     TableDetailsComponent,
-    AddNoteComponent
+    AddNoteComponent,
+    TableNumComponent
   ]
 })
 export class AppModule { }
