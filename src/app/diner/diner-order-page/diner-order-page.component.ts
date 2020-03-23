@@ -26,12 +26,13 @@ export class DinerOrderPageComponent implements OnInit, OnDestroy {
 
   currentOrder: Order;
   orderChanged: Subscription;
+  
   isEmpty: boolean = true;
-
-
 
   @ViewChild(PlaceholderDirective, { static: false }) alertHost: PlaceholderDirective;
   private closeSub: Subscription;
+  private confirmSub: Subscription;
+
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver, private orderService: OrderService) { 
   }
@@ -58,7 +59,15 @@ export class DinerOrderPageComponent implements OnInit, OnDestroy {
     hostViewContainerRef.clear();
     const componentRef = hostViewContainerRef.createComponent(alertCmpFactory);
 
+    this.confirmSub = componentRef.instance.confirm.subscribe(() => {
+      this.orderService.sendOrder(this.currentOrder);
+      this.confirmSub.unsubscribe();
+      this.closeSub.unsubscribe();
+      hostViewContainerRef.clear();
+    });
+
     this.closeSub = componentRef.instance.close.subscribe(() => {
+      this.confirmSub.unsubscribe();
       this.closeSub.unsubscribe();
       hostViewContainerRef.clear();
     });
@@ -72,11 +81,11 @@ export class DinerOrderPageComponent implements OnInit, OnDestroy {
     componentRef.instance.noteText = currentNote;
     componentRef.instance.currentProductPosition = currentPosition;
 
-
     this.closeSub = componentRef.instance.close.subscribe(() => {
       this.closeSub.unsubscribe();
       hostViewContainerRef.clear();
     });
+
   }
 
   onRemoveProduct(position: number){

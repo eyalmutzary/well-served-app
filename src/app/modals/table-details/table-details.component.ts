@@ -20,18 +20,18 @@ export class TableDetailsComponent implements OnInit {
   constructor(private tableService: TableService) { }
 
   ngOnInit() {
-    this.fetchTableOrders();
+    this.getTableDetails();
   }
 
   onClose(){
     this.close.emit();
   }
 
-  fetchTableOrders(){
+  getTableDetails(){
     this.totalProducts = [];
-    this.tableService.fetchTableOrders().subscribe(resData => {
+    this.tableService.getTableDetails().subscribe(resData => {
         resData.orders.forEach(order => {
-          order.productList.forEach(product => {
+          order.productList.forEach((product) => {
             this.totalProducts.push(product);
           })
         });

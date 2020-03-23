@@ -34,7 +34,7 @@ export class TableService {
       );
   }
 
-  fetchTableOrders() {
+  getTableDetails() {
     return this.http
       .get(
         'http://localhost:3000/tables?tableName=' + this.tableNum
